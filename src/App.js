@@ -26,7 +26,8 @@ state = {
   ],
   todoValue: "",
   errorMessage: false,
-  editTodoValue: ""
+  editTodoValue: "",
+  disableEditButton: false
 }
 
 inputOnChange = (event) => {
@@ -78,10 +79,13 @@ appEditOnClick = (targetID) => {
 
   })
   this.setState({
-    todoList: newArr
+    todoList: newArr,
+    disableEditButton: true
   })
 
-  
+
+
+  console.log(this.state.disableEditButton);
   
 }
 
@@ -105,19 +109,20 @@ appHandleUpdateButton = (targetID) => {
     return item
 
   })
-  console.log(newArr);
+  
   
 
   this.setState({
     todoList: newArr,
-    editTodoValue:""
+    editTodoValue:"",
+    disableEditButton: false
 
   })
 }
 
 
   render() {
-    const {todoList, editTodoValue} = this.state
+    const {todoList, editTodoValue, disableEditButton} = this.state
     return (
       <div>
         {this.state.errorMessage ? <div>Please enter a to do!</div> : null}
@@ -130,6 +135,7 @@ appHandleUpdateButton = (targetID) => {
                   editTodoValue={editTodoValue}
                   appEditOnChange={this.appEditOnChange}
                   appHandleUpdateButton={this.appHandleUpdateButton}
+                  disableEditButton={disableEditButton}
         />
 
         {todoList.length===0 ? <div> No todos. </div> : null}
